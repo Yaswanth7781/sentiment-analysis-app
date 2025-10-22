@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sentiment Analyzer</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Sentiment Analyzer 😃😐😠</h1>
+        <p>Enter your text below to analyze its sentiment.</p>
+        
+        <form method="POST" action="/">
+            <textarea name="text_input" rows="5" placeholder="Type or paste your text here...">{{ text }}</textarea>
+            <button type="submit">Analyze Text</button>
+        </form>
+
+        {% if sentiment %}
+        <div class="results">
+            <h2>Analysis Results</h2>
+            
+            <p class_name="sentiment-label">Sentiment: 
+                <span class="{{ sentiment|lower }}">{{ sentiment }}</span>
+            </p>
+            
+            <div class="scores">
+                <div class="score-card">
+                    <h3>Polarity</h3>
+                    <p>{{ polarity }}</p>
+                    <small>(-1 Negative, 0 Neutral, 1 Positive)</small>
+                </div>
+                <div class="score-card">
+                    <h3>Subjectivity</h3>
+                    <p>{{ subjectivity }}</p>
+                    <small>(0 Objective, 1 Subjective)</small>
+                </div>
+            </div>
+
+            {% if text %}
+            <div class="original-text">
+                <h3>Original Text:</h3>
+                <p>"{{ text }}"</p>
+            </div>
+            {% endif %}
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>
